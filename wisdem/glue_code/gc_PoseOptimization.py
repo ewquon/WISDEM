@@ -1241,6 +1241,28 @@ class PoseOptimization(object):
         if blade_constr["frequency"]["edge_3P"]:
             wt_opt.model.add_constraint("rotorse.rs.constr.constr_edge_f_margin", upper=0.0)
 
+        if blade_constr["flap_frequency"]["flag"]:
+            print('Adding first flap frequency constraint',
+                    blade_constr["flap_frequency"]["lower_bound"],
+                    blade_constr["flap_frequency"]["upper_bound"])
+            wt_opt.model.add_constraint(
+                'rotorse.rs.frame.flap_mode_freqs',
+                indices=[0],
+                lower=blade_constr["flap_frequency"]["lower_bound"],
+                upper=blade_constr["flap_frequency"]["upper_bound"],
+            )
+
+        if blade_constr["edge_frequency"]["flag"]:
+            print('Adding first edge frequency constraint',
+                    blade_constr["edge_frequency"]["lower_bound"],
+                    blade_constr["edge_frequency"]["upper_bound"])
+            wt_opt.model.add_constraint(
+                'rotorse.rs.frame.edge_mode_freqs',
+                indices=[0],
+                lower=blade_constr["edge_frequency"]["lower_bound"],
+                upper=blade_constr["edge_frequency"]["upper_bound"],
+            )
+
         if blade_constr["rail_transport"]["8_axle"]:
             wt_opt.model.add_constraint("rotorse.re.rail.constr_LV_8axle_horiz", lower=0.8, upper=1.0)
             wt_opt.model.add_constraint("rotorse.re.rail.constr_strainPS", upper=1.0)

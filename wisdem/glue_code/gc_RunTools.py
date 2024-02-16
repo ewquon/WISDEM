@@ -37,12 +37,14 @@ class Convergence_Trends_Opt(om.ExplicitComponent):
                         if i == 0:
                             design_vars[dv] = []
                         design_vars[dv].append(design_var[dv])
+                #print('iter',i,'design_vars',design_vars)
 
                 for response in [it_data.get_responses()]:
                     for resp in response:
                         if i == 0:
                             responses[resp] = []
                         responses[resp].append(response[resp])
+                #print('iter',i,'responses',responses)
 
                 # parameters = it_data.get_responses()
                 for parameters in [it_data.get_responses(), it_data.get_design_vars()]:
@@ -50,6 +52,9 @@ class Convergence_Trends_Opt(om.ExplicitComponent):
                         if i == 0:
                             rec_data[param] = []
                         rec_data[param].append(parameters[param])
+                print('iter',i,'rec_data')
+                for param,data in rec_data.items():
+                    print('  ',param,'=',data)
 
             if self.options["opt_options"]["driver"]["optimization"]["flag"]:
                 for param in rec_data.keys():
@@ -61,6 +66,7 @@ class Convergence_Trends_Opt(om.ExplicitComponent):
                         fig.savefig(os.path.join(folder_output, fig_name))
                         plt.close(fig)
                     except ValueError:
+                        print('COULD NOT PLOT',param,rec_data[param])
                         pass
 
             elif self.options["opt_options"]["driver"]["design_of_experiments"]["flag"]:

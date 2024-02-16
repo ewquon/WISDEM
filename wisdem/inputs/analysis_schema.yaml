@@ -1023,6 +1023,42 @@ properties:
                         properties:
                             flap_3P: *flag
                             edge_3P: *flag
+                    flap_frequency:
+                        type: object
+                        description: (EXPERIMENTAL) Targeted blade fundamental flap frequency range
+                        default: {}
+                        properties:
+                            flag: *flag
+                            lower_bound:
+                                type: number
+                                default: 0.01
+                                minimum: 0.01
+                                maximum: 10.0
+                                unit: Hz
+                            upper_bound:
+                                type: number
+                                default: 10.0
+                                minimum: 0.01
+                                maximum: 10.0
+                                unit: Hz
+                    edge_frequency:
+                        type: object
+                        description: (EXPERIMENTAL) Targeted blade fundamental edge frequency range
+                        default: {}
+                        properties:
+                            flag: *flag
+                            lower_bound:
+                                type: number
+                                default: 0.01
+                                minimum: 0.01
+                                maximum: 10.0
+                                unit: Hz
+                            upper_bound:
+                                type: number
+                                default: 10.0
+                                minimum: 0.01
+                                maximum: 10.0
+                                unit: Hz
                     moment_coefficient:
                         type: object
                         description: (EXPERIMENTAL) Targeted blade moment coefficient (useful for managing root flap loads or inverse design approaches that is not recommendend for general use)
